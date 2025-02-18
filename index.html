@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Course</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://i.ibb.co.com/d0Lpkpkn/shopifyfavicon.png" type="image/x-icon">
+    <style>
+        /* Custom animations and styles */
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .animate-pulse-link {
+            animation: pulse 1s infinite;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .module-text {
+            color: #ff6347;
+        }
+
+        .coming-soon-text {
+            color: #34D399;
+        }
+
+        .button-text {
+            color: #FBBF24;
+        }
+
+        .module-header {
+            color: #FBBF24;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: #FF6347;
+        }
+
+        .close-btn:hover {
+            cursor: pointer;
+        }
+
+        .hidden-content {
+            display: none;
+        }
+
+        .visible-content {
+            display: block;
+        }
+
+        .arrow-icon {
+            transition: transform 0.3s;
+        }
+
+        .rotate-90 {
+            transform: rotate(90deg);
+        }
+
+        .completed-btn {
+            background-color: #32CD32;
+            color: white;
+            font-size: 1.25rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .completed-btn:hover {
+            background-color: #28a745;
+        }
+
+        .completed-btn.completed {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .watch-icon {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white; /* White circle initially */
+            transition: color 0.3s;
+        }
+
+        .watch-icon.watched {
+            color: #32CD32; /* Green checkmark when watched */
+        }
+
+        .class-card {
+            background-color: #ffffff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .class-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .class-card a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            color: #FF6347;
+            text-decoration: none;
+        }
+
+        .class-card a:hover {
+            color: #FF4500;
+        }
+
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .login-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 0.75rem;
+            margin: 1rem 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .login-form button {
+            background: #4CAF50;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .login-form button:hover {
+            background: #45a049;
+        }
+
+        .warning {
+            color: red;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .password-container .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
+    </style>
+<script defer data-domain="shopifyait.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script><script type="text/javascript" src="https://tiiny.host/ad-script.js"></script><script defer data-domain="shopifyait.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script><script type="text/javascript" src="https://tiiny.host/ad-script.js"></script></head>
+<body class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-poppins">
+    <!-- Login Overlay -->
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-form">
+            <h2 class="text-2xl font-bold mb-4 text-gray-800">Enter Password</h2>
+            <div class="password-container">
+                <input type="password" id="passwordInput" placeholder="Enter password" class="text-gray-800">
+                <span class="eye-icon" onclick="togglePasswordVisibility()">👁️</span>
+            </div>
+            <button onclick="checkPassword()">Submit</button>
+            <p id="warning" class="warning">Incorrect password! Please try again.</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" class="max-w-4xl mx-auto p-6 hidden">
+        <h1 class="text-4xl font-bold text-center mb-6 gradient-text">Shopify Course</h1>
+        
+        <!-- Shopify Module -->
+        <div class="bg-white shadow-2xl rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4 module-header">Shopify Module</h2>
+            
+            <!-- Button to toggle Shopify classes visibility -->
+            <button onclick="toggleContent('shopifyClasses')" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md w-full text-left flex items-center justify-between">
+                <span class="button-text">Shopify Released Classes</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="arrow-icon w-5 h-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <div id="shopifyClasses" class="hidden-content mt-4">
+                <button onclick="toggleContent('shopifyClasses')" class="close-btn">
+                    &times;
+                </button>
+                <ul>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/URuZJd-5s5Q" target="_blank">
+                                Class 1: Shopify Course Details + Shopify.com & Shopify Partner Details (01:49:00)
+                                <span id="class1-icon" class="watch-icon" onclick="toggleWatched(event, 'class1')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/URuZJd-5s5Q" target="_blank">
+                                Class 2: Introduction to Shopify (02:00:00)
+                                <span id="class2-icon" class="watch-icon" onclick="toggleWatched(event, 'class2')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/bGIEPMHltJM" target="_blank">
+                                Class 3: Online Store Part-1 (01:03:00)
+                                <span id="class3-icon" class="watch-icon" onclick="toggleWatched(event, 'class3')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/EXWABh4t1sU" target="_blank">
+                                Class 4: Online Store Part-2 (45:00)
+                                <span id="class4-icon" class="watch-icon" onclick="toggleWatched(event, 'class4')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/pL1-qAjtw3s" target="_blank">
+                                Class 5: Online Store Part-3 (01:40:00)
+                                <span id="class5-icon" class="watch-icon" onclick="toggleWatched(event, 'class5')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/yRwfPagwlIg" target="_blank">
+                                Class 6: PART-I+ (Elia Themes Setting) (45:00)
+                                <span id="class6-icon" class="watch-icon" onclick="toggleWatched(event, 'class6')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/AQ4HIjv6Dy4" target="_blank">
+                                Class 7: Theme Setting Final Class (01:07:00)
+                                <span id="class7-icon" class="watch-icon" onclick="toggleWatched(event, 'class7')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/n-SXyWsGDfM" target="_blank">
+                                Class 8: Homepage Layout (44:00)
+                                <span id="class8-icon" class="watch-icon" onclick="toggleWatched(event, 'class8')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/pTu8fzxEQn8" target="_blank">
+                                Class 9: Wix to Shopify Live Project (01:20:00)
+                                <span id="class9-icon" class="watch-icon" onclick="toggleWatched(event, 'class9')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/4jihzv7auhM" target="_blank">
+                                Class 10: How to Setup Shopify Payment Gateway (44:00)
+                                <span id="class10-icon" class="watch-icon" onclick="toggleWatched(event, 'class10')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/SbHV5qheKNI" target="_blank">
+                                Class 11: Product Page & Other Pages (01:07)
+                                <span id="class10-icon" class="watch-icon" onclick="toggleWatched(event, 'class11')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Coming Soon Modules -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Dropshipping -->
+            <div class="bg-white shadow-2xl rounded-lg p-6">
+                <h2 class="text-2xl font-bold mb-4 module-header">Dropshipping Module</h2>
+                <p class="coming-soon-text font-semibold">Coming Soon</p>
+            </div>
+
+            <!-- Page Builder -->
+            <div class="bg-white shadow-2xl rounded-lg p-6">
+                <h2 class="text-2xl font-bold mb-4 module-header">Page Builder Module</h2>
+                <p class="coming-soon-text font-semibold">Coming Soon</p>
+            </div>
+
+            <!-- Marketplace -->
+            <div class="bg-white shadow-2xl rounded-lg p-6">
+                <h2 class="text-2xl font-bold mb-4 module-header">Marketplace Module</h2>
+                
+                <!-- Button to toggle Marketplace classes visibility -->
+                <button onclick="toggleContent('marketplaceClasses')" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md w-full text-left flex items-center justify-between">
+                    <span class="button-text">Marketplace Released Classes</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="arrow-icon w-5 h-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div id="marketplaceClasses" class="hidden-content mt-4">
+                    <button onclick="toggleContent('marketplaceClasses')" class="close-btn">
+                        &times;
+                    </button>
+                    <ul>
+                        <!-- Class 1: Fiverr Gig Image SEO -->
+                        <li>
+                            <div class="class-card">
+                                <a href="https://youtu.be/Ah_b6JiCADM" target="_blank">
+                                    Class 1: Fiverr Gig Image SEO (06:00)
+                                    <span id="marketplaceClass1-icon" class="watch-icon" onclick="toggleWatched(event, 'marketplaceClass1')">&#9898;</span>
+                                </a>
+                            </div>
+                        </li>
+                        <!-- Class 2: Fiverr Paid Keyword -->
+                        <li>
+                            <div class="class-card">
+                                <a href="https://ahmedyit.com/wp-content/uploads/2024/11/video1395329330.mp4" target="_blank">
+                                    Class 2: Fiverr Paid Keyword (02:00)
+                                    <span id="marketplaceClass2-icon" class="watch-icon" onclick="toggleWatched(event, 'marketplaceClass2')">&#9898;</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Shopify Store Build -->
+            <div class="bg-white shadow-2xl rounded-lg p-6">
+                <h2 class="text-2xl font-bold mb-4 module-header">Shopify Store Build Module</h2>
+                <p class="coming-soon-text font-semibold">Coming Soon</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle watched state
+        function toggleWatched(event, classId) {
+            event.preventDefault(); // Prevent the default behavior of the link
+            event.stopPropagation(); // Stop the event from bubbling up to the parent
+            const icon = event.target;
+            icon.classList.toggle("watched");
+
+            // Save the state in localStorage
+            if (icon.classList.contains("watched")) {
+                localStorage.setItem(classId, "watched");
+                icon.innerHTML = "&#10004;"; // Change to green checkmark
+            } else {
+                localStorage.removeItem(classId);
+                icon.innerHTML = "&#9898;"; // Change back to white circle
+            }
+        }
+
+        // Function to load saved states from localStorage
+        function loadWatchedStates() {
+            const watchIcons = document.querySelectorAll(".watch-icon");
+            watchIcons.forEach((icon) => {
+                const classId = icon.getAttribute("id").replace("-icon", "");
+                if (localStorage.getItem(classId)) {
+                    icon.classList.add("watched");
+                    icon.innerHTML = "&#10004;"; // Set to green checkmark
+                } else {
+                    icon.classList.remove("watched");
+                    icon.innerHTML = "&#9898;"; // Set to white circle
+                }
+            });
+        }
+
+        // Load saved states when the page loads
+        window.onload = loadWatchedStates;
+
+        // Other functions (password check, toggle content, etc.)
+        function checkPassword() {
+            const password = document.getElementById("passwordInput").value;
+            const warning = document.getElementById("warning");
+            const loginOverlay = document.getElementById("loginOverlay");
+            const mainContent = document.getElementById("mainContent");
+
+            if (password === "112144") { // Use a simple password check
+                loginOverlay.style.display = "none";
+                mainContent.style.display = "block";
+            } else {
+                warning.style.display = "block";
+            }
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById("passwordInput");
+            const eyeIcon = document.querySelector(".eye-icon");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                eyeIcon.textContent = "🙈";
+            } else {
+                passwordInput.type = "password";
+                eyeIcon.textContent = "👁️";
+            }
+        }
+
+        function toggleContent(contentId) {
+            const content = document.getElementById(contentId);
+            const button = content.previousElementSibling;
+            const icon = button.querySelector('.arrow-icon');
+
+            content.classList.toggle('hidden-content');
+            icon.classList.toggle('rotate-90');
+        }
+    </script>
+</body>
+</html>
