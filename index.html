@@ -318,17 +318,49 @@
                             </a>
                         </div>
                     </li>
+                    <li>
+                        <div class="class-card">
+                            <a href="https://youtu.be/w-AOzo_lfNY" target="_blank">
+                                Class 12: Canva Pro A to Z (58:00)
+                                <span id="class10-icon" class="watch-icon" onclick="toggleWatched(event, 'class11')">&#9898;</span>
+                            </a>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
 
         <!-- Coming Soon Modules -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Dropshipping -->
+            <!-- Dropshipping Module -->
             <div class="bg-white shadow-2xl rounded-lg p-6">
                 <h2 class="text-2xl font-bold mb-4 module-header">Dropshipping Module</h2>
-                <p class="coming-soon-text font-semibold">Coming Soon</p>
+                
+                <!-- Button to toggle Dropshipping classes visibility -->
+                <button onclick="toggleContent('dropshippingClasses')" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-md w-full text-left flex items-center justify-between">
+                    <span class="button-text">Dropshipping Released Classes</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="arrow-icon w-5 h-5 text-white" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div id="dropshippingClasses" class="hidden-content mt-4">
+                    <button onclick="toggleContent('dropshippingClasses')" class="close-btn">
+                        &times;
+                    </button>
+                    <ul>
+                        <!-- Class 1: Dropshipping Fundamental and Single Product Research -->
+                        <li>
+                            <div class="class-card">
+                                <a href="https://youtu.be/RJ7h4stJjOw" target="_blank">
+                                    Class 1: Dropshipping Fundamental and Single Product Research (01:00:00)
+                                    <span id="dropshippingClass1-icon" class="watch-icon" onclick="toggleWatched(event, 'dropshippingClass1')">&#9898;</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
+        
 
             <!-- Page Builder -->
             <div class="bg-white shadow-2xl rounded-lg p-6">
